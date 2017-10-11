@@ -36,6 +36,9 @@ class Stego(object):
 
         Utils.check_carrier_image(self.carrier, self.hide_file)
 
+        if encrypt:
+            self.hide_file = Utils.encrypt(encrypt, self.hide_file)
+
         if any(x.lower() in str(mime[0]).lower() for x in ['Text', 'None']):
             logger.info("Doing a TEXT encode...")
             self.encode_text()
@@ -49,7 +52,7 @@ class Stego(object):
 
         return self.carrier
 
-    def decode(self, mime):
+    def decode(self, decrypt=False, mime=None):
         logger.info("Running decoder...")
         if any(x.lower() in str(mime[0]).lower() for x in ['Text', 'None']):
             logger.info("Doing a TEXT decode...")
@@ -61,6 +64,9 @@ class Stego(object):
             ConcealException("Unable to read output file type")
             logger.fatal("File type {}. Did nothing, exiting.".format(mime))
             sys.exit()
+
+        if decrypt:
+            self.output = Utils.decrypt(decrypt, self.output)
 
         return self.output
 

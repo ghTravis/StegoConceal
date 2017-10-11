@@ -25,7 +25,7 @@ def main():
     elif args.operation == "decode":
 
         mime = mimetypes.guess_type(args.output)
-        raw = conceal.decode(mime)
+        raw = conceal.decode(decrypt=args.password or False, mime=mime)
 
         with open(args.output, "wb") as f:
             f.write(raw)
