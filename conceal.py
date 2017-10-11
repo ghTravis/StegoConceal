@@ -13,9 +13,6 @@ def main():
     carrier.read()
     conceal = Stego(carrier)
 
-    if args.verbose:
-        logger.setLevel(logging.CRITICAL - (10 * int(args.verbose)))
-
     if args.operation == "encode":
         file = open(args.file, "rb").read()
         conceal.hide_file = file
@@ -43,5 +40,8 @@ if __name__ == '__main__':
     parser.add_argument('-v', '--verbose', dest='verbose', action='count', default=0, help='Encrypt the embedded file with a password')
     parser.add_argument('operation', choices=['encode', 'decode'], help="Supply the operation you want to perform on the image")
     args = parser.parse_args()
+
+    if args.verbose:
+        logger.setLevel(logging.CRITICAL - (10 * int(args.verbose)))
 
     main()

@@ -1,5 +1,6 @@
 import cv2
 import logging
+from stego import ConcealException
 
 logger = logging.getLogger(__name__)
 
@@ -15,10 +16,17 @@ class Image(object):
 
     def read(self, file=None):
         logger.info("Reading carrier file in...")
-        self.image = cv2.imread(file or self.file_path)
-        self.height, self.width, self.channels = self.image.shape
-        logger.debug("Image has dimensions: {}".format(self.image.shape))
 
+        try:
+            self.image = cv2.imread(file or self.file_path)
+            self.height, self.width, self.channels = self.image.shape
+            logger.debug("Image has dimensions: {}".format(self.image.shape))
+
+            return True
+        except Exception as e:
+            ConcealException("Unable to read in carrier image")
+
+        return False
 
     def write(self, out):
         cv2.imwrite(out, self.image)
