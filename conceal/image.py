@@ -6,7 +6,17 @@ logger = logging.getLogger(__name__)
 
 
 class Image(object):
+    """
+    Image Class
+
+    An Image object for holding the Carrier image
+    """
     def __init__(self, path):
+        """
+        Init Function
+
+        :param path:
+        """
         self.file_path = path
 
         self.image = None
@@ -15,6 +25,13 @@ class Image(object):
         self.channels = None
 
     def read(self, file=None):
+        """
+        Read Function
+
+        Read in an image into memory
+        :param file:
+        :return:
+        """
         logger.info("Reading carrier file in...")
 
         try:
@@ -29,4 +46,12 @@ class Image(object):
         return False
 
     def write(self, out):
+        """
+        Write Function
+
+        Write the image to a specified file
+        :param out:
+        :return:
+        """
         cv2.imwrite(out, self.image)
+        return
