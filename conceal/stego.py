@@ -58,7 +58,7 @@ class Stego(object):
         if any(x.lower() in str(mime[0]).lower() for x in ['Text', 'None']):
             logger.info("Doing a TEXT encode...")
             self._encode_text()
-        elif "binary" in mime[0]:
+        elif any(x.lower() in str(mime[0]).lower() for x in ['Application', 'Binary']):
             logger.info("Doing a BINARY encode...")
             self._encode_binary()
         else:
@@ -83,7 +83,7 @@ class Stego(object):
         if any(x.lower() in str(mime[0]).lower() for x in ['Text', 'None']):
             logger.info("Doing a TEXT decode...")
             self._decode_text()
-        elif "binary" in mime[0]:
+        elif any(x.lower() in str(mime[0]).lower() for x in ['Application', 'Binary']):
             logger.info("Doing a BINARY decode...")
             self._decode_binary()
         else:
@@ -166,11 +166,12 @@ class Stego(object):
         length = int(self._read_bits(64), 2)
         logger.debug("Length of hidden file is: {}".format(length))
 
-        output = b""
+        output = b''
 
         # read in all embedded bits one at a time and concatenate them together
         for i in range(length):
-            output += chr(int(self._read_bits(8), 2)).encode("utf-8")
+
+            output += str(int(self._read_bits(8), 2)).encode("utf-8")
         self.output = output
 
     def _embed_binary_val(self, bits):

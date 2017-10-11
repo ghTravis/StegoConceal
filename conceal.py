@@ -54,7 +54,7 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output', dest='output', help='The filename to output the combined files as')
     parser.add_argument('-f', '--file', dest='file', help='The file to store in the carrier image')
     parser.add_argument('-p', '--password', dest='password', action="store", help='Encrypt the embedded file with a password')
-    parser.add_argument('-v', '--verbose', dest='verbose', action='count', default=0, help='Encrypt the embedded file with a password')
+    parser.add_argument('-v', '--verbose', dest='verbose', action='count', default=0, help='Increase verbosity level')
     parser.add_argument('operation', choices=['encode', 'decode'], help="Supply the operation you want to perform on the image")
     args = parser.parse_args()
 

@@ -26,6 +26,26 @@ pip install -r requirements.txt
 
 ### Usage
 
+The Stego-Conceal app comes with basic help switch statement that willassist you with all the parameters you can specify:
+```
+usage: conceal.py [-h] [-i INPUT] [-o OUTPUT] [-f FILE] [-p PASSWORD] [-v]
+                  {encode,decode}
+                  
+A steganography tool to conceal a file within an image.
+
+positional arguments:
+  {encode,decode}                   Supply the operation you want to perform on the image
+  
+optional arguments:
+  -h, --help                        show this help message and exit
+  -i INPUT, --input INPUT
+                                    The carrier image to hold the concealed data
+  -o OUTPUT, --output OUTPUT        The filename to output the combined files as
+  -f FILE, --file FILE              The file to store in the carrier image
+  -p PASSWORD, --password PASSWORD  Encrypt the embedded file with a password
+  -v, --verbose                     Increase verbosity level 
+```
+
 To encode a carrier image with a secret file, use the `encode` parameter with an input file, secret file, and output file name:
 ```
 python conceal.py encode -i <path_to_carrier_file> -f <path_to_secret_file> -o <output_file>
@@ -40,6 +60,14 @@ You can optionally specify a password with the `encode` parameter to encrypt the
 ```
 python conceal.py encode -i <path_to_carrier_file> -f <path_to_secret_file> -o <output_file> -p test123
 python conceal.py decode -i <path_to_carrier_file> -o <output_file> -p test123
+```
+
+To increase verbosity, simply increase the number of v's to the `-v` flag
+```
+-v for ERROR
+-vv for WARNING
+-vvv for INFO
+-vvvv for DEBUG
 ```
 
 ## Built With
