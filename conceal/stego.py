@@ -195,7 +195,7 @@ class Stego(object):
                 # perform an AND operator on the new pixel value if the bit is not a 1
                 val[self.cur_channel] = int(val[self.cur_channel]) & self.mask_zero
 
-            logger.debug("Altering pixel {},{} with {}".format(self.cur_height, self.cur_width, tuple(val)))
+            logger.debug("Altering pixel {},{},{} with {}".format(self.cur_height, self.cur_width, self.cur_channel, tuple(val)))
 
             # write the value to the image
             self.carrier.image[self.cur_height, self.cur_width] = tuple(val)
@@ -208,7 +208,6 @@ class Stego(object):
         Iterate through the image and determine the next pixel coordinate to bit manipulate
         :return:
         """
-        logger.debug("Before: {},{},{}".format(self.cur_height, self.cur_width, self.cur_channel))
 
         # increment the channel pointer if we're at the end of the channel column
         # increment the width pointer if we're not at the end of the row
@@ -233,8 +232,6 @@ class Stego(object):
         else:
             self.cur_channel += 1
 
-        logger.debug("After: {},{},{}".format(self.cur_height, self.cur_width, self.cur_channel))
-
     def _read_bits(self, nb):
         """
         Read Bits Function
@@ -255,4 +252,5 @@ class Stego(object):
                 bits += "1"
             else:
                 bits += "0"
+        logger.info("Binary of hidden byte at {},{},{} is {}".format(self.cur_height, self.cur_width, self.cur_channel, bits))
         return bits

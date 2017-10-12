@@ -1,6 +1,7 @@
 import cv2
 import logging
-from stego import ConcealException
+import sys
+from stego import ConcealException as ConcealException
 
 logger = logging.getLogger(__name__)
 
@@ -42,8 +43,8 @@ class Image(object):
             return True
         except Exception as e:
             ConcealException("Unable to read in carrier image")
-
-        return False
+            logger.fatal("Unable to read in carrier image: {}".format(e.message))
+            sys.exit()
 
     def write(self, out):
         """
